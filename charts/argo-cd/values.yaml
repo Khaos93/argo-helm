@@ -1120,11 +1120,12 @@ server:
     # Role definitions and bindings are in the form:
     #   g, subject, inherited-subject
     # See https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/rbac.md for additional information.
-    # policy.csv: |
+     policy.csv: |
+      g, <your_azure_ad_group_id>, role:admin
     #   # Grant all members of the group 'my-org:team-alpha; the ability to sync apps in 'my-project'
     #   p, my-org:team-alpha, applications, sync, my-project/*, allow
     #   # Grant all members of 'my-org:team-beta' admins
-    #   g, my-org:team-beta, role:admin
+      
     # policy.default is the name of the default role which Argo CD will falls back to, when
     # authorizing API requests (optional). If omitted or empty, users may be still be able to login,
     # but will see no apps, projects, etc...
@@ -1701,6 +1702,10 @@ configs:
     # -- Admin password modification time. Eg. `"2006-01-02T15:04:05Z"`
     # @default -- `""` (defaults to current time)
     argocdServerAdminPasswordMtime: ""
+
+    oidc:
+      azure:
+        clientSecret: ""
 
   # -- Define custom [CSS styles] for your argo instance.
   # This setting will automatically mount the provided CSS and reference it in the argo configuration.
